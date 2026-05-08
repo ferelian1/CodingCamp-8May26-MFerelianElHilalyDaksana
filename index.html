@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="To-Do List Life Dashboard — clock, focus timer, tasks, and quick links in one place." />
+  <title>Life Dashboard</title>
+
+  <!-- Theme flash prevention: apply saved theme before body renders -->
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem('tld_theme');
+        if (theme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      } catch (e) {
+        // localStorage unavailable — default (light) theme will be used
+      }
+    })();
+  </script>
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Theme toggle — always visible -->
+  <button id="theme-toggle" aria-label="Toggle light/dark theme">🌙</button>
+
+  <!-- Storage unavailability warning banner -->
+  <div id="storage-warning" role="alert" aria-live="polite" hidden>
+    ⚠ Storage unavailable — your data will not be saved this session.
+    <button id="storage-warning-dismiss" aria-label="Dismiss warning">✕</button>
+  </div>
+
+  <main class="dashboard">
+
+    <!-- Card 1: Clock & Greeting -->
+    <section class="card card--clock" aria-label="Clock and greeting">
+      <div id="clock-time" aria-live="polite" aria-atomic="true">00:00:00</div>
+      <div id="clock-date"></div>
+      <div id="greeting-text"></div>
+      <div class="name-row">
+        <label for="name-input" class="sr-only">Your name</label>
+        <input
+          type="text"
+          id="name-input"
+          placeholder="Enter your name…"
+          autocomplete="off"
+          maxlength="50"
+        />
+        <button id="name-save-btn">Save</button>
+      </div>
+    </section>
+
+    <!-- Card 2: Focus Timer -->
+    <section class="card card--timer" aria-label="Focus timer">
+      <h2 class="card__title">Focus Timer</h2>
+      <div id="timer-display" aria-live="polite" aria-atomic="true">25:00</div>
+      <div class="timer-controls">
+        <button id="timer-start">Start</button>
+        <button id="timer-stop">Stop</button>
+        <button id="timer-reset">Reset</button>
+      </div>
+    </section>
+
+    <!-- Card 3: Task Manager -->
+    <section class="card card--tasks" aria-label="Task manager">
+      <h2 class="card__title">Tasks</h2>
+      <div class="task-input-row">
+        <label for="task-input" class="sr-only">New task</label>
+        <input
+          type="text"
+          id="task-input"
+          placeholder="Add a new task…"
+          autocomplete="off"
+        />
+        <button id="task-add-btn">Add</button>
+      </div>
+      <p id="task-error" class="error-msg" role="alert" aria-live="polite" hidden></p>
+      <div class="task-list-header">
+        <button id="task-sort-btn" aria-label="Sort tasks alphabetically">Sort A–Z</button>
+      </div>
+      <ul id="task-list" aria-label="Task list"></ul>
+    </section>
+
+    <!-- Card 4: Quick Links -->
+    <section class="card card--links" aria-label="Quick links">
+      <h2 class="card__title">Quick Links</h2>
+      <div class="link-input-row">
+        <label for="link-name-input" class="sr-only">Link name</label>
+        <input
+          type="text"
+          id="link-name-input"
+          placeholder="Link name…"
+          autocomplete="off"
+        />
+        <label for="link-url-input" class="sr-only">URL</label>
+        <input
+          type="url"
+          id="link-url-input"
+          placeholder="https://…"
+          autocomplete="off"
+        />
+        <button id="link-add-btn">Add Link</button>
+      </div>
+      <p id="link-error" class="error-msg" role="alert" aria-live="polite" hidden></p>
+      <div id="links-container" aria-label="Saved links"></div>
+    </section>
+
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
